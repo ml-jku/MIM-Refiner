@@ -1,10 +1,12 @@
-# Data
+# Data Setup
 
 Instructions for setting up datasets for evaluations.
 
+## ImageNet lowshot datasets
+We use [ImageNetSubsetGenerator](https://github.com/BenediktAlkin/ImageNetSubsetGenerator) to create ImageNet subsets.
 
 ## iNat18
-### create lowshot dataset
+### Dreate lowshot dataset
 ```bash
 python analysis/data/create_inat18_lowshot_dataset.py --src /localdata/inat18 --dst /localdata/inat18_1shot_split1 --shots 1 --seed 1
 python analysis/data/create_inat18_lowshot_dataset.py --src /localdata/inat18 --dst /localdata/inat18_1shot_split2 --shots 1 --seed 2

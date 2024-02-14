@@ -1,4 +1,4 @@
-# Models
+# Models Setup
 
 URLs for downloading pre-trained models for refining or evaluation.
 Download models into the path defined in the field "model_path" from your `static_config.yaml`.

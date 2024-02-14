@@ -39,7 +39,7 @@ def main(nodes, gpus, time, account, qos, constraint, script, preload, dependenc
         nodes = 1
     # load template submit script
     if nodes is not None:
-        with open("template_sbatch_nodes_github.sh") as f:
+        with open("template_sbatch_nodes.sh") as f:
             template = f.read()
     elif gpus is not None:
         with open("template_sbatch_gpus.sh") as f:
