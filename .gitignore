@@ -37,7 +37,6 @@ submit/
 sbatch/
 scratchpad*
 qsub_config.yaml
-template_sbatch_nodes_github.sh
 template_sbatch_gpus.sh
 sbatch_config.yaml
 static_config.yaml
