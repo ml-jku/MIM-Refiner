@@ -47,7 +47,7 @@ if there is a "slow" global storage and compute nodes have a fast local storage 
 sync the W&B logs after the run has finished to inspect it via the web interface.
   - if `online` or `offline` is used you will need to create a `wandb_config` (see below)
 
-An example is provided in `template_static_config.yaml` which you can copy and adapt to your setup.
+To get started copy `template_static_config.yaml`, rename it to `static_config.yaml` and adapt it to your setup.
 
 ## W&B config
 
