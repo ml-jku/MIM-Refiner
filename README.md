@@ -1,10 +1,16 @@
 # MIM-Refiner
 
-Pytorch implementation of MIM-Refiner.
+
+PapersWithCode
+[[Paper TODO](TODO)]  [BibTeX](https://github.com/ml-jku/MIM-Refiner#citation)
+
+
+Pytorch implementation and pre-trained models of MIM-Refiner.
+
 
 
 <p align="center">
-<img width="100%" alt="mimrefiner_schematic" src="https://github.com/ml-jku/MIM-Refiner/blob/d235adce233e6a6179235b3d695b01927d73240b/docs/imgs/schematic.svg">
+<img width="80%" alt="mimrefiner_schematic" src="https://github.com/ml-jku/MIM-Refiner/blob/d235adce233e6a6179235b3d695b01927d73240b/docs/imgs/schematic.svg">
 </p>
 
 
