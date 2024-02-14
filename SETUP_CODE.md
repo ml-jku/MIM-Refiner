@@ -99,10 +99,14 @@ Then start runs with the `main_sbatch.py` script.
 Example:
 - `python main_sbatch.py --time 24:00:00 --nodes 4 --hp yamls/stage3/l16_mae.yaml`
 
+### Run many yamls
+
+You can run many yamls by creating a folder `yamls_run`, copying all yamls that you want to run
+into that folder and then running `python main_run_folder.py --devices 0 --folder yamls_run`.
 
 #### Resume run
 
-Add these flags to your `python main_train.py` or `python main_sbatch.py` command.
+Add these flags to your `python main_train.py` or `python main_sbatch.py` command to resume from a checkpoint.
 
 - `--resume_stage_id <STAGGE_ID>` resume from `cp=latest`
 - `--resume_stage_id <STAGGE_ID> --resume_checkpoint E100` resume from epoch 100
