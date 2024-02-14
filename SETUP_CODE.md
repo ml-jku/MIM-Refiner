@@ -59,59 +59,58 @@ yamls create a folder `wandb_configs`, copy the `template_wandb_config.yaml` int
 `entity`/`project` in this file and rename it to `v4.yaml`.
 Every run that defines `wandb: v4` will now fetch the details from this file and log your metrics to this W&B project.
 
+## SLURM config
+
+This codebase supports runs in SLURM environments. For this, you need to provide some additional configurations.
+Copy the `template_sbatch_config.yaml`, rename it to `sbatch_config.yaml` and adjust the values to your setup.
+
+Copy the `template_sbatch_nodes_github.sh`, rename it to `template_sbatch_nodes.sh` and adjust the values to your setup.
+
+
+## Start Runs
+
+You can start runs with the `main_train.py` file. For example
+
+You can queue up runs in SLURM environments by running `python main_sbatch.py --hp <YAML> --time <TIME> --nodes <NODES>`
+which will queue up a run that uses the hyperparameters from `<YAML>` and queues up a run on `<NODES>` nodes.
+
 
 ## Run
 
-### Runs require the following arguments
+All hyperparameters have to be defined in a yaml file that is passed via the `--hp <YAML>` CLI argument.
+You can start runs on "normal" servers or SLURM environments.
 
-- `--hp <YAML>` e.g. `--hp hyperparams.yaml` define what to run
-- `--devices <DEVICES>` e.g. `--devices 0` to run on GPU0 or `--devices 0,1,2,3` to run on 4 GPUs
+### Run on "Normal" Servers
+
+Define how many (and which) GPUs you want to use with the `--devices` CLI argument
+- `--devices 0` will start the run on the GPU with index 0
+- `--devices 2` will start the run on the GPU with index 2
+- `--devices 0,1,2,3` will start the run on 4 GPUs
+
+Examples:
+- `python main_train.py --devices 0,1,2,3 --hp yamls/stage2/l16_mae.yaml`
+- `python main_train.py --devices 0,1,2,3,4,5,6,7 --hp yamls/stage3/l16_mae.yaml`
 
 ### Run with SLURM
 
-`python main_sbatch.py --time 2-00:00:00 --qos default --nodes 1 ADDITIONAL_ARGUMENTS`
-`python main_sbatch.py --time 2-00:00:00 --qos default --nodes 1 --hp <HP> --name <NAME>`
+To start runs in SLURM environments, you need to setup the configurations for SLURM as outlined above.
+Then start runs with the `main_sbatch.py` script.
 
-### Optional arguments (most important ones)
+Example:
+- `python main_sbatch.py --time 24:00:00 --nodes 4 --hp yamls/stage3/l16_mae.yaml`
 
-- `--name <NAME>` what name to assign in wandb
-- `--wandb_config <YAML>` what wandb configuration to use (by default the `wandb_config.yaml` in the MLPlayground
-  directory will be used)
-    - only required if you have either `default_wandb_mode` to `online`/`offline` or pass `--wandb_mode <WANDB_MODE>`
-      which is `online`/`offline` (a warning will be logged if you specify it with  `wandb_mode=disabled`)
-- `--num_workers` specify how many workers will be used for data loading
-    - by default `num_workers` will be `number_of_cpus / number_of_gpus`
 
-### Development arguments
+#### Resume run
 
-- `--accelerator cpu` runs on cpu (can still use multiple devices for debugging multi-gpu runs but with cpu)
-- `--mindatarun` adjusts datasets length, epochs, logger intervals and batchsize to a minimum
-- `--minmodelrun` replaces all values in the hp yaml of the pattern `${select:model_key:${yaml:models/...}}`
-  with `${select:debug:${yaml:models/...}}`
-    - you can define your model size with a model key and it will automatically replace it with a minimal model
-    - e.g. `encoder_model_key: tiny` for a ViT-T as encoder
-      with `encoder_params: ${select:${vars.encoder_model_key}:${yaml:models/vit}}` will select a very light-weight ViT
-- `--testrun` combination of `--mindatarun` and `--minmodelrun`
+Add these flags to your `python main_train.py` or `python main_sbatch.py` command.
 
-## Data setup
-
-#### data_loading_mode == "local"
-
-- ImageFolder datasets can be stored as zip files (see SETUP.md for creating these)
-  - 1 zip per split (slow unpacking): ImageNet/train -> ImageNet/train.zip
-  - 1 zip per class per split (fast unpacking): ImageNet/train/n1830348 -> ImageNet/train/n1830348.zip
-- sync zipped folders to other servers `rsync -r /localdata/imagenet1k host:/data/`
-
-## Resume run
-
-### Via CLI
 - `--resume_stage_id <STAGGE_ID>` resume from `cp=latest`
 - `--resume_stage_id <STAGGE_ID> --resume_checkpoint E100` resume from epoch 100
 - `--resume_stage_id <STAGGE_ID> --resume_checkpoint U100` resume from update 100
 - `--resume_stage_id <STAGGE_ID> --resume_checkpoint S1024` resume from sample 1024
 
-### Via yaml
-add a resume initializer to the trainer
+#### Via yaml
+Add a resume initializer to the trainer
 
 ```
 trainer:
