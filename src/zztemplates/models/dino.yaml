@@ -1,0 +1,9 @@
+debug:
+  proj_hidden_dim: 16
+  bottleneck_dim: 8
+  output_dim: 128
+
+base:
+  proj_hidden_dim: 2048
+  bottleneck_dim: 256
+  output_dim: 65536

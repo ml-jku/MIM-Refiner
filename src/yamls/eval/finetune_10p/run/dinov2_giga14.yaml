@@ -1,0 +1,49 @@
+wandb: v4
+name: dinov2-giga14--semivit-sd0
+stage_name: 10p
+
+datasets:
+  train:
+    template: ${yaml:datasets/imagenet/train_randaug_mix_erase_smooth}
+    template.vars.version: imagenet1k_10percent_simclrv2
+  test:
+    template: ${yaml:datasets/imagenet/test_noaug}
+    template.vars.version: imagenet1k
+
+model:
+  kind: torch_hub_model
+  repo: facebookresearch/dinov2
+  model: dinov2_vitg14
+  mode: classifier
+  optim:
+    kind: adamw
+    lr: 1.0e-3
+    betas: [ 0.9, 0.999 ]
+    weight_decay: 0.05
+    schedule:
+      - schedule:
+          kind: linear_increasing_schedule
+          exclude_first: true
+          exclude_last: true
+        end_epoch: 5
+      - schedule:
+          kind: cosine_decreasing_schedule
+          exclude_last: true
+    param_group_modifiers:
+      - kind: layerwise_lr_decay_modifier
+        decay: 0.75
+
+trainer:
+  kind: classification_trainer
+  precision: bfloat16
+  max_epochs: 50
+  effective_batch_size: 256
+  log_every_n_epochs: 1
+  callbacks:
+    - kind: checkpoint_callback
+    - kind: offline_accuracy_callback
+      every_n_epochs: 1
+      dataset_key: test
+    - kind: best_checkpoint_callback
+      every_n_epochs: 1
+      metric_key: accuracy1/test/main

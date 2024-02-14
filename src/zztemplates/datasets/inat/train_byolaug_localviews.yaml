@@ -1,0 +1,87 @@
+vars:
+  version: ???
+  global_resolution: 224
+  local_resolution: 96
+  min_scale: 0.05
+  mid_scale: 0.25
+  n_local_views: 10
+  num_views_per_transform: 1
+
+
+kind: inat
+version: ${vars.version}
+split: train
+sample_wrappers:
+  - kind: kd_multi_view_wrapper
+    configs:
+      - n_views: ${vars.num_views_per_transform}
+        transform:
+          - kind: kd_random_resized_crop
+            size: ${vars.global_resolution}
+            scale:
+              - ${vars.mid_scale}
+              - 1.0
+            interpolation: bicubic
+          - kind: kd_random_horizontal_flip
+          - kind: kd_random_color_jitter
+            p: 0.8
+            brightness: 0.4
+            contrast: 0.4
+            saturation: 0.2
+            hue: 0.1
+          - kind: kd_gaussian_blur_pil
+            sigma:
+              - 0.1
+              - 2.0
+          - kind: kd_random_grayscale
+            p: 0.2
+          - kind: kd_image_net_norm
+      - n_views: ${vars.num_views_per_transform}
+        transform:
+          - kind: kd_random_resized_crop
+            size: ${vars.global_resolution}
+            scale:
+              - ${vars.mid_scale}
+              - 1.0
+            interpolation: bicubic
+          - kind: kd_random_horizontal_flip
+          - kind: kd_random_color_jitter
+            p: 0.8
+            brightness: 0.4
+            contrast: 0.4
+            saturation: 0.2
+            hue: 0.1
+          - kind: kd_random_gaussian_blur_pil
+            p: 0.1
+            sigma:
+              - 0.1
+              - 2.0
+          - kind: kd_random_grayscale
+            p: 0.2
+          - kind: kd_random_solarize
+            p: 0.2
+            threshold: 128
+          - kind: kd_image_net_norm
+      - n_views: ${vars.n_local_views}
+        transform:
+          - kind: kd_random_resized_crop
+            size: ${vars.local_resolution}
+            scale:
+              - ${vars.min_scale}
+              - ${vars.mid_scale}
+            interpolation: bicubic
+          - kind: kd_random_horizontal_flip
+          - kind: kd_random_color_jitter
+            p: 0.8
+            brightness: 0.4
+            contrast: 0.4
+            saturation: 0.2
+            hue: 0.1
+          - kind: kd_random_gaussian_blur_pil
+            p: 0.5
+            sigma:
+              - 0.1
+              - 2.0
+          - kind: kd_random_grayscale
+            p: 0.2
+          - kind: kd_image_net_norm

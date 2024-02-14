@@ -1,0 +1,80 @@
+# the account name is only used to describe from which account the run was started from
+# this is more descriptive than the hostname as it also specifies who ran it
+account_name: ??? # iml_<ACCOUNT_NAME>
+
+# path to store logs/checkpoints
+output_path: ??? # /work/<CHANGEME>/save_<CHANGEME>
+# path where pretrained models are stored
+# model_path: /work/<CHANGEME>/models
+
+# global datasets
+global_dataset_paths:
+  # classification
+#  cifar10: /publicdata/CIFAR10
+#  cifar100: /data/cifar100
+#  caltech-101: /data/caltech-101
+#  oxford-pets: /data/oxford-pets
+#  oxford-flowers: /data/oxford-flowers
+#  sun-397: /data/sun-397
+#  svhn: /data/svhn
+  imagenet1k: /work/data/imagenet1k
+  # subsets
+#  imagenet100_sololearn: /work/data/imagenet100_sololearn
+#  imagenet1k_10percent_simclrv2: /data/ImageNet1K/imagenet1k_10percent_simclrv2
+#  imagenet1k_msn1percent: /data/ImageNet1K/imagenet1k_msn1percent
+#  imagenet15_dogs: /data/ImageNet15/imagenet15_dogs
+  # MSN IN1K subsets
+#  imagenet1k_msn1perclass_split1: /data/ImageNet1K/imagenet1k_msn1perclass_split1
+#  imagenet1k_msn1perclass_split2: /data/ImageNet1K/imagenet1k_msn1perclass_split2
+#  imagenet1k_msn1perclass_split3: /data/ImageNet1K/imagenet1k_msn1perclass_split3
+#  imagenet1k_msn2perclass_split1: /data/ImageNet1K/imagenet1k_msn2perclass_split1
+#  imagenet1k_msn2perclass_split2: /data/ImageNet1K/imagenet1k_msn2perclass_split2
+#  imagenet1k_msn2perclass_split3: /data/ImageNet1K/imagenet1k_msn2perclass_split3
+#  imagenet1k_msn5perclass_split1: /data/ImageNet1K/imagenet1k_msn5perclass_split1
+#  imagenet1k_msn5perclass_split2: /data/ImageNet1K/imagenet1k_msn5perclass_split2
+#  imagenet1k_msn5perclass_split3: /data/ImageNet1K/imagenet1k_msn5perclass_split3
+  # inat
+#  inat18: /data/inat/inat18
+#  inat18_1shot_split1: /data/inat/inat18_1shot_split1
+#  inat18_1shot_split2: /data/inat/inat18_1shot_split2
+#  inat18_1shot_split3: /data/inat/inat18_1shot_split3
+#  inat18_5shot_split1: /data/inat/inat18_5shot_split1
+#  inat18_5shot_split2: /data/inat/inat18_5shot_split2
+#  inat18_5shot_split3: /data/inat/inat18_5shot_split3
+#  inat18_10shot_split1: /data/inat/inat18_10shot_split1
+#  inat18_10shot_split2: /data/inat/inat18_10shot_split2
+#  inat18_10shot_split3: /data/inat/inat18_10shot_split3
+  # semantic segmentation
+#  ade20k: /data/ade20k/ADEChallengeData2016
+
+# OPTIONAL: path to (fast) local storage
+#local_dataset_path: /localdata/
+# OPTIONAL: group to assign to local dataset path
+# local_dataset_path_group: <GROUP>
+
+# OPTIONAL
+# defines which directory to load the data from
+# - not defined or null -> each dataset defines the default value (e.g. ImageFolder -> local)
+# - "global" -> load samples from global_dataset_path
+# - "local" -> load samples from local_dataset_path
+#data_source_modes:
+#  imagenet1k: local
+
+# wandb
+# disabled -> don't use wandb
+# offline -> use wandb in offline mode
+# online -> use wandb in online mode
+default_wandb_mode: disabled
+
+# DDP
+master_port: 55555
+
+# cudnn
+default_cudnn_benchmark: true
+default_cudnn_deterministic: false
+# enable/disable cuda profiling
+# - enabled: after every cuda operation to be profiled a torch.cuda.synchronize and dist.barrier is appended -> slower
+# - disabled: cuda operations are not profiled
+default_cuda_profiling: false
+# sync batchnorm
+default_sync_batchnorm: true

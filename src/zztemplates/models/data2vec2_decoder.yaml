@@ -1,0 +1,23 @@
+debug:
+  dim: 8
+  depth: 1
+  kernel_size: 3
+  groups: 2
+
+base:
+  dim: 768
+  depth: 6
+  kernel_size: 3
+  groups: 16
+
+large:
+  dim: 1024
+  depth: 3
+  kernel_size: 5
+  groups: 16
+
+huge:
+  dim: 1024
+  depth: 3
+  kernel_size: 5
+  groups: 16

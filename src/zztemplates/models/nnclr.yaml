@@ -1,0 +1,23 @@
+debug:
+  queue_size: 2048
+  proj_hidden_dim: 16
+  pred_hidden_dim: 32
+  output_dim: 4
+
+micro:
+  queue_size: 16384
+  proj_hidden_dim: 256
+  pred_hidden_dim: 512
+  output_dim: 128
+
+tiny:
+  queue_size: 65536
+  proj_hidden_dim: 1024
+  pred_hidden_dim: 2048
+  output_dim: 128
+
+base:
+  queue_size: 65536
+  proj_hidden_dim: 2048
+  pred_hidden_dim: 4096
+  output_dim: 256

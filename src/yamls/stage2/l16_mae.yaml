@@ -1,0 +1,86 @@
+wandb: v4
+stage_name: stage2
+name: l16-mae
+processors:
+  - kind: stage2_processor
+vars:
+  max_epochs: 20
+  batch_size: 1024
+  optim:
+    kind: adamw
+    lr: 2.0e-4
+    betas: [ 0.9, 0.95 ]
+    weight_decay: 1.0e-5
+    schedule:
+      template: ${yaml:schedules/wupcos_epoch}
+      template.vars.end_epoch: 4
+
+datasets:
+  train:
+    template: ${yaml:datasets/imagenet/train_byolaug_localviews}
+    template.vars.version: imagenet1k
+  train_noaug_10p:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_10percent_simclrv2
+  test:
+    template: ${yaml:datasets/imagenet/test_noaug}
+    template.vars.version: imagenet1k
+
+model:
+  kind: contrastive_model
+  encoder:
+#    kind: vit.vit
+#    patch_size: 16
+#    kwargs: ${select:base:${yaml:models/vit}}
+    is_frozen: true
+    initializers:
+      - kind: pretrained_initializer
+        weights_file: mae_large16.pth
+        use_checkpoint_kwargs: true
+  heads:
+    nnclr_temp02_cls:
+      kwargs: ${select:base:${yaml:models/nnclr}}
+      optim: ${vars.optim}
+    nnclr_temp02_cls22:
+      kwargs: ${select:base:${yaml:models/nnclr}}
+      optim: ${vars.optim}
+    nnclr_temp02_cls21:
+      kwargs: ${select:base:${yaml:models/nnclr}}
+      optim: ${vars.optim}
+    nnclr_temp02_cls20:
+      kwargs: ${select:base:${yaml:models/nnclr}}
+      optim: ${vars.optim}
+    nnclr_temp02_cls19:
+      kwargs: ${select:base:${yaml:models/nnclr}}
+      optim: ${vars.optim}
+    nnclr_temp02_cls18:
+      kwargs: ${select:base:${yaml:models/nnclr}}
+      optim: ${vars.optim}
+    nnclr_temp02_cls17:
+      kwargs: ${select:base:${yaml:models/nnclr}}
+      optim: ${vars.optim}
+    nnclr_temp02_cls16:
+      kwargs: ${select:base:${yaml:models/nnclr}}
+      optim: ${vars.optim}
+
+trainer:
+  kind: contrastive_trainer
+  precision: bfloat16
+  backup_precision: float16
+  max_epochs: ${vars.max_epochs}
+  effective_batch_size: ${vars.batch_size}
+  log_every_n_epochs: 1
+  callbacks:
+    - kind: checkpoint_callback
+    - kind: checkpoint_callback
+      every_n_epochs: 1
+      save_weights: false
+      save_optim: false
+      save_latest_weights: true
+      save_latest_optim: true
+    # k-NN 10%
+    - kind: offline_knn_metrics_callback
+      every_n_epochs: 1
+      train_dataset_key: train_noaug_10p
+      test_dataset_key: test
+      extractors: from_processor

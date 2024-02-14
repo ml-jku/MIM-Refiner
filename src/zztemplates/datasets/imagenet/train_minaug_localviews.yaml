@@ -1,0 +1,37 @@
+vars:
+  version: ???
+  semi_version: null
+  global_resolution: 224
+  local_resolution: 96
+  min_scale: 0.05
+  mid_scale: 0.25
+  n_local_views: 10
+
+
+kind: imagenet
+version: ${vars.version}
+semi_version: ${vars.semi_version}
+split: train
+sample_wrappers:
+  - kind: kd_multi_view_wrapper
+    configs:
+      - n_views: 2
+        transform:
+          - kind: kd_random_resized_crop
+            size: ${vars.global_resolution}
+            scale:
+              - ${vars.mid_scale}
+              - 1.0
+            interpolation: bicubic
+          - kind: kd_random_horizontal_flip
+          - kind: kd_image_net_norm
+      - n_views: ${vars.n_local_views}
+        transform:
+          - kind: kd_random_resized_crop
+            size: ${vars.local_resolution}
+            scale:
+              - ${vars.min_scale}
+              - ${vars.mid_scale}
+            interpolation: bicubic
+          - kind: kd_random_horizontal_flip
+          - kind: kd_image_net_norm

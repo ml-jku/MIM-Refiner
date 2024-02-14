@@ -1,0 +1,56 @@
+wandb: v4
+name: data2vec2-large16--semivitmin
+stage_name: 1p
+
+datasets:
+  train:
+    template: ${yaml:datasets/imagenet/train_minaug_smooth}
+    template.vars.version: imagenet1k_msn1percent
+  test:
+    template: ${yaml:datasets/imagenet/test_noaug}
+    template.vars.version: imagenet1k
+
+model:
+#  kind: vit.vit
+#  patch_size: 16
+#  kwargs: ${select:large:${yaml:models/vit}}
+  pos_embed_is_learnable: true
+  mode: classifier
+  pooling:
+    kind: class_token
+  optim:
+    kind: adamw
+    lr: 1.0e-3
+    betas: [ 0.9, 0.999 ]
+    weight_decay: 0.05
+    schedule:
+      - schedule:
+          kind: linear_increasing_schedule
+          exclude_first: true
+          exclude_last: true
+        end_epoch: 5
+      - schedule:
+          kind: cosine_decreasing_schedule
+          exclude_last: true
+    param_group_modifiers:
+      - kind: layerwise_lr_decay_modifier
+        decay: 0.75
+  initializers:
+    - kind: pretrained_initializer
+      weights_file: data2vec2_large16.pt
+      use_checkpoint_kwargs: true
+
+trainer:
+  kind: classification_trainer
+  precision: bfloat16
+  max_epochs: 50
+  effective_batch_size: 512
+  log_every_n_epochs: 1
+  callbacks:
+    - kind: checkpoint_callback
+    - kind: offline_accuracy_callback
+      every_n_epochs: 1
+      dataset_key: test
+    - kind: best_checkpoint_callback
+      every_n_epochs: 1
+      metric_key: accuracy1/test/main

@@ -1,0 +1,36 @@
+wandb: v4
+name: d2v2-huge14
+stage_name: features
+
+processors:
+  - kind: vit_extractors_processor
+    num_blocks: 32
+    poolings: [ class_token ]
+
+datasets:
+  test:
+    template: ${yaml:datasets/imagenet/test_noaug}
+    template.vars.version: imagenet1k
+
+model:
+#  kind: vit.vit
+#  patch_size: 16
+#  kwargs: ${select:large:${yaml:models/vit}}
+  is_frozen: true
+  initializers:
+    - kind: pretrained_initializer
+      weights_file: data2vec2_huge14.pt
+      use_checkpoint_kwargs: true
+
+trainer:
+  kind: single_eval_trainer
+  precision: bfloat16
+  backup_precision: float16
+  effective_batch_size: 256
+  max_epochs: 0
+  log_every_n_epochs: 1
+  callbacks:
+    - kind: offline_features_callback
+      every_n_epochs: 1
+      dataset_key: test
+      extractors: from_processor

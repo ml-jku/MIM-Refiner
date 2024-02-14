@@ -1,0 +1,53 @@
+# the account name is only used to describe from which account the run was started from
+# this is more descriptive than the hostname as it also specifies who ran it
+account_name: dev
+
+# path to store logs/checkpoints
+output_path: ~/Documents/save_mlp
+# path where pretrained models are stored
+model_path: ~/Documents/models
+
+# global datasets (
+global_dataset_paths:
+  # classification
+  cifar10: ~/Documents/data/cifar10
+  cifar100: ~/Documents/data/cifar100
+  imagenet1k: ~/Documents/data/imagenet1k
+  inat18: ~/Documents/data/imagenet1k
+  # subsets
+  imagenet100_sololearn: ~/Documents/data/imagenet1k
+  imagenet1k_10percent_simclrv2: ~/Documents/data/imagenet1k
+  imagenet1k_msn1percent: ~/Documents/data/imagenet1k
+  imagenet15_dogs: ~/Documents/data/imagenet1k
+  # MSN IN1K subsets
+  imagenet1k_msn1perclass_split1: ~/Documents/data/imagenet1k
+  imagenet1k_msn1perclass_split2: ~/Documents/data/imagenet1k
+  imagenet1k_msn1perclass_split3: ~/Documents/data/imagenet1k
+  imagenet1k_msn2perclass_split1: ~/Documents/data/imagenet1k
+  imagenet1k_msn2perclass_split2: ~/Documents/data/imagenet1k
+  imagenet1k_msn2perclass_split3: ~/Documents/data/imagenet1k
+  imagenet1k_msn5perclass_split1: ~/Documents/data/imagenet1k
+  imagenet1k_msn5perclass_split2: ~/Documents/data/imagenet1k
+  imagenet1k_msn5perclass_split3: ~/Documents/data/imagenet1k
+  # semantic segmentation
+  ade20k: ~/Documents/data/ade20k
+
+# OPTIONAL: path to (fast) local storage
+# local_dataset_path: ~/Documents/data_local
+
+# wandb
+# disabled -> don't use wandb
+# offline -> use wandb in offline mode
+# online -> use wandb in online mode
+default_wandb_mode: disabled
+
+# DDP
+master_port: 55555
+
+# cudnn benchmark
+default_cudnn_benchmark: false
+default_cudnn_deterministic: true
+# cuda profiling
+default_cuda_profiling: true
+# sync batchnorm
+default_sync_batchnorm: true

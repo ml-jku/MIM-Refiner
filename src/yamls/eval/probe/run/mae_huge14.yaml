@@ -1,0 +1,49 @@
+wandb: v4
+stage_name: probe
+name: mae-huge14
+vars:
+  epochs: 50
+  pooling: class_token
+
+processors:
+  - kind: probe_processor
+    grid: dinov2
+    probe_kind: linear_probe
+    poolings:
+      - ${vars.pooling}
+      - concat_class_average
+
+datasets:
+  train:
+    template: ${yaml:datasets/imagenet/train_minaug}
+    template.vars.version: imagenet1k
+  test:
+    template: ${yaml:datasets/imagenet/test_noaug}
+    template.vars.version: imagenet1k
+
+model:
+  kind: probe_model
+  encoder:
+#    kind: vit.vit
+#    patch_size: 16
+#    kwargs: ${select:large:${yaml:models/vit}}
+    initializers:
+      - kind: pretrained_initializer
+        weights_file: mae_huge14.pth
+        use_checkpoint_kwargs: true
+  heads: from_processor
+
+trainer:
+  kind: classification_trainer
+  precision: bfloat16
+  effective_batch_size: 1024
+  max_epochs: ${vars.epochs}
+  log_every_n_epochs: 1
+  callbacks:
+    # accuracy
+    - kind: offline_accuracy_callback
+      every_n_epochs: 1
+      topk: [ 1 ]
+      dataset_key: test
+    # save last model (+ saves encoder)
+    - kind: checkpoint_callback

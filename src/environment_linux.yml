@@ -1,0 +1,24 @@
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.9
+  - pytorch
+  - torchvision
+  - einops
+  - torchmetrics
+  - wandb
+  - timm
+  - matplotlib
+  - iopath # requirement of fvcore but not in dependency tree of fvcore
+  - fvcore # FLOPs counting
+  - pytest
+  - pip
+  - pip:
+      - kappabenchmark
+      - kappaconfig
+      - kappadata
+      - kappamodules
+      - kappaprofiler
+      - kappautils

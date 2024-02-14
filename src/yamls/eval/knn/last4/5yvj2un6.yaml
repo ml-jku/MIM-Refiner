@@ -1,0 +1,53 @@
+wandb: v4
+stage_name: knn
+name: 5yvj2un6--last4
+vars:
+  stage_id: 5yvj2un6
+
+datasets:
+  train:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k
+  test:
+    template: ${yaml:datasets/imagenet/test_noaug}
+    template.vars.version: imagenet1k
+
+model:
+#    kind: vit.vit
+#    patch_size: 16
+#    kwargs: ${select:large:${yaml:models/vit}}
+  mode: classifier
+  pooling:
+    kind: class_token
+  is_frozen: true
+  initializers:
+    - kind: previous_run_initializer
+      stage_id: ${vars.stage_id}
+      stage_name: stage3
+      model_name: contrastive_model.encoder
+      model_info: ema=0.9999
+      checkpoint: last
+      use_checkpoint_kwargs: true
+
+trainer:
+  kind: classification_trainer
+  precision: bfloat16
+  backup_precision: float16
+  effective_batch_size: 256
+  max_epochs: 0
+  log_every_n_epochs: 1
+  callbacks:
+    - kind: offline_knn_metrics_callback
+      every_n_epochs: 1
+      train_dataset_key: train
+      test_dataset_key: test
+      inplace: true
+      extractors:
+        - kind: vit_block_extractor
+          use_next_norm: false
+          block_indices: [ -1, -2, -3, -4 ]
+          finalizer:
+            kind: concat_finalizer
+            dim: -1
+          pooling:
+            kind: class_token

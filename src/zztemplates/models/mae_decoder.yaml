@@ -1,0 +1,19 @@
+debug:
+  dim: 8
+  depth: 8
+  num_attn_heads: 2
+
+tiny:
+  dim: 192
+  depth: 8
+  num_attn_heads: 3
+
+small:
+  dim: 384
+  depth: 8
+  num_attn_heads: 6
+
+default:
+  dim: 512
+  depth: 8
+  num_attn_heads: 16

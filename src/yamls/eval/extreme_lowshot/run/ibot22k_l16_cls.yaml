@@ -1,0 +1,76 @@
+wandb: v4
+stage_name: logreg
+name: ibot22k-l16--cls
+
+datasets:
+  train_1pc_s1:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn1perclass_split1
+  train_1pc_s2:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn1perclass_split2
+  train_1pc_s3:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn1perclass_split3
+  train_2pc_s1:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn2perclass_split1
+  train_2pc_s2:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn2perclass_split2
+  train_2pc_s3:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn2perclass_split3
+  train_5pc_s1:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn5perclass_split1
+  train_5pc_s2:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn5perclass_split2
+  train_5pc_s3:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn5perclass_split3
+  test:
+    template: ${yaml:datasets/imagenet/test_noaug}
+    template.vars.version: imagenet1k
+
+model:
+#  kind: vit.vit
+#  patch_size: 16
+#  kwargs: ${select:large:${yaml:models/vit}}
+  mode: classifier
+  pooling:
+    kind: class_token
+  is_frozen: true
+  initializers:
+    - kind: pretrained_initializer
+      weights_file: ibot_large16_in22k.pth
+      use_checkpoint_kwargs: true
+
+trainer:
+  kind: classification_trainer
+  precision: bfloat16
+  backup_precision: float16
+  effective_batch_size: 128
+  max_epochs: 0
+  log_every_n_epochs: 1
+  callbacks:
+    - kind: offline_logreg_callback
+      every_n_epochs: 1
+      train_dataset_keys:
+        - train_1pc_s1
+        - train_1pc_s2
+        - train_1pc_s3
+        - train_2pc_s1
+        - train_2pc_s2
+        - train_2pc_s3
+        - train_5pc_s1
+        - train_5pc_s2
+        - train_5pc_s3
+      test_dataset_key: test
+      extractors:
+        - kind: vit_block_extractor
+          use_next_norm: false
+          block_indices: [ -1 ]
+          pooling:
+            kind: class_token

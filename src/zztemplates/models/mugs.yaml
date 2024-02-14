@@ -1,0 +1,36 @@
+debug:
+  queue_size: 2048
+  dim: 16
+  num_heads: 2
+  depth: 1
+
+
+tiny:
+  queue_size: 65536
+  dim: 192
+  num_heads: 3
+  depth: 1
+
+small:
+  queue_size: 65536
+  dim: 384
+  num_heads: 6
+  depth: 1
+
+base:
+  queue_size: 65536
+  dim: 768
+  num_heads: 12
+  depth: 1
+
+large:
+  queue_size: 65536
+  dim: 1024
+  num_heads: 16
+  depth: 1
+
+huge:
+  queue_size: 65536
+  dim: 1280
+  num_heads: 16
+  depth: 1

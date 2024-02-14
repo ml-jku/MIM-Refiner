@@ -1,0 +1,33 @@
+vars:
+  version: ???
+  resize_resolution: 256
+  rrc_resolution: 224
+  min_scale: 0.08
+
+kind: inat
+version: ${vars.version}
+split: train
+sample_wrappers:
+  - kind: x_transform_wrapper
+    transform:
+      - kind: kd_resize
+        size: ${vars.resize_resolution}
+        interpolation: bicubic
+      - kind: kd_random_resized_crop
+        size: ${vars.rrc_resolution}
+        scale:
+          - ${vars.min_scale}
+          - 1.0
+        interpolation: bicubic
+      - kind: kd_random_horizontal_flip
+      - kind: kd_image_net_norm
+  - kind: label_smoothing_wrapper
+    smoothing: 0.1
+collators:
+  - kind: kd_mix_collator
+    cutmix_alpha: 1.0
+    mixup_p: 0.1
+    cutmix_p: 0.0
+    apply_mode: batch
+    lamb_mode: batch
+    shuffle_mode: flip

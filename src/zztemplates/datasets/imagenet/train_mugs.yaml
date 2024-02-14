@@ -1,0 +1,8 @@
+vars:
+  version: ???
+
+kind: imagenet
+version: ${vars.version}
+split: train
+sample_wrappers:
+  - kind: mugs_multi_view_wrapper

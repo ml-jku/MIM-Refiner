@@ -1,0 +1,46 @@
+wandb: v4
+stage_name: inat18-probe
+name: dinov2-giga14--e50-1shot-split1
+vars:
+  epochs: 50
+  pooling: class_token
+
+processors:
+  - kind: probe_processor
+    grid: dinov2
+    model_path: model
+    probe_kind: linear_probe
+    poolings:
+      - ${vars.pooling}
+      - concat_class_average
+
+datasets:
+  train:
+    template: ${yaml:datasets/inat/train_minaug}
+    template.vars.version: inat18_1shot_split1
+  test:
+    template: ${yaml:datasets/inat/test_noaug}
+    template.vars.version: inat18
+
+model:
+  kind: probe_model
+  encoder:
+    kind: torch_hub_model
+    repo: facebookresearch/dinov2
+    model: dinov2_vitg14
+  heads: from_processor
+
+trainer:
+  kind: classification_trainer
+  precision: bfloat16
+  effective_batch_size: 1024
+  max_epochs: ${vars.epochs}
+  log_every_n_epochs: 1
+  callbacks:
+    # accuracy
+    - kind: offline_accuracy_callback
+      every_n_epochs: 1
+      to_cpu: true
+      topk:
+        - 1
+      dataset_key: test

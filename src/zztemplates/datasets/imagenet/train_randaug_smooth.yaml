@@ -1,0 +1,26 @@
+vars:
+  version: ???
+  resolution: 224
+
+kind: imagenet
+version: ${vars.version}
+split: train
+sample_wrappers:
+  - kind: x_transform_wrapper
+    transform:
+      - kind: kd_random_resized_crop
+        size: ${vars.resolution}
+        scale:
+          - 0.08
+          - 1.0
+        interpolation: bicubic
+      - kind: kd_random_horizontal_flip
+      - kind: kd_rand_augment
+        num_ops: 2
+        magnitude: 9
+        magnitude_std: 0.5
+        interpolation: bicubic
+        fill_color: [ 124, 116, 104 ]
+      - kind: kd_image_net_norm
+  - kind: label_smoothing_wrapper
+    smoothing: 0.1

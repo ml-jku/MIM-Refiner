@@ -1,0 +1,54 @@
+wandb: v4
+stage_name: inat18-probe
+name: 5yvj2un6--e50-1shot-split3
+vars:
+  stage_id: 5yvj2un6
+  epochs: 50
+  pooling: class_token
+
+processors:
+  - kind: probe_processor
+    grid: dinov2
+    probe_kind: linear_probe
+    poolings:
+      - ${vars.pooling}
+      - concat_class_average
+
+datasets:
+  train:
+    template: ${yaml:datasets/inat/train_minaug}
+    template.vars.version: inat18_1shot_split3
+  test:
+    template: ${yaml:datasets/inat/test_noaug}
+    template.vars.version: inat18
+
+model:
+  kind: probe_model
+  encoder:
+#    kind: vit.vit
+#    patch_size: 16
+#    kwargs: ${select:large:${yaml:models/vit}}
+    initializers:
+      - kind: previous_run_initializer
+        stage_id: ${vars.stage_id}
+        stage_name: stage3
+        model_name: contrastive_model.encoder
+        model_info: ema=0.9999
+        checkpoint: last
+        use_checkpoint_kwargs: true
+  heads: from_processor
+
+trainer:
+  kind: classification_trainer
+  precision: bfloat16
+  effective_batch_size: 1024
+  max_epochs: ${vars.epochs}
+  log_every_n_epochs: 1
+  callbacks:
+    # accuracy
+    - kind: offline_accuracy_callback
+      every_n_epochs: 1
+      to_cpu: true
+      topk:
+        - 1
+      dataset_key: test

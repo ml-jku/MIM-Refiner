@@ -1,0 +1,49 @@
+wandb: v4
+stage_name: knn
+name: data2vec2-huge14--grid
+
+datasets:
+  train:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k
+  test:
+    template: ${yaml:datasets/imagenet/test_noaug}
+    template.vars.version: imagenet1k
+
+model:
+#    kind: vit.vit
+#    patch_size: 16
+#    kwargs: ${select:large:${yaml:models/vit}}
+  mode: classifier
+  pooling:
+    kind: class_token
+  is_frozen: true
+  initializers:
+    - kind: pretrained_initializer
+      weights_file: data2vec2_huge14.pt
+      use_checkpoint_kwargs: true
+
+trainer:
+  kind: classification_trainer
+  precision: bfloat16
+  backup_precision: float16
+  effective_batch_size: 256
+  max_epochs: 0
+  log_every_n_epochs: 1
+  callbacks:
+    - kind: offline_knn_metrics_callback
+      every_n_epochs: 1
+      train_dataset_key: train
+      test_dataset_key: test
+      knns: [ 1, 2, 3, 5, 10, 20, 30, 50, 100, 200 ]
+      extractors:
+        - kind: vit_block_extractor
+          use_next_norm: false
+          block_indices: [ -1 ]
+          pooling:
+            kind: class_token
+        - kind: vit_block_extractor
+          use_next_norm: false
+          block_indices: [ -1 ]
+          pooling:
+            kind: mean_patch

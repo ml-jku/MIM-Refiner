@@ -1,0 +1,20 @@
+vars:
+  version: ???
+  resize_resolution: 256
+  crop_resolution: 224
+  num_views: 2
+
+kind: imagenet
+version: ${vars.version}
+split: train
+sample_wrappers:
+  - kind: kd_multi_view_wrapper
+    configs:
+      - n_views: ${vars.num_views}
+        transform:
+          - kind: kd_resize
+            size: ${vars.resize_resolution}
+            interpolation: bicubic
+          - kind: center_crop
+            size: ${vars.crop_resolution}
+          - kind: kd_image_net_norm

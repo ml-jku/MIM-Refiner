@@ -1,0 +1,19 @@
+vars:
+  version: ???
+  resolution: 224
+  min_scale: 0.08
+
+kind: inat
+version: ${vars.version}
+split: train
+sample_wrappers:
+  - kind: x_transform_wrapper
+    transform:
+      - kind: kd_random_resized_crop
+        size: ${vars.resolution}
+        scale:
+          - ${vars.min_scale}
+          - 1.0
+        interpolation: bicubic
+      - kind: kd_random_horizontal_flip
+      - kind: kd_image_net_norm

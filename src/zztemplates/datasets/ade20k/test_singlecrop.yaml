@@ -1,0 +1,12 @@
+vars:
+  resolution: ??
+
+kind: ade20k
+split: val
+sample_wrappers:
+  - kind: semseg_transform_wrapper
+    transforms:
+      - kind: kd_semseg_resize
+        size: ${vars.resolution}
+        interpolation: bicubic
+      - kind: kd_image_net_norm

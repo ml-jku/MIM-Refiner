@@ -1,0 +1,91 @@
+wandb: v4
+stage_name: logreg
+name: dinov2-large14--cls-res518
+
+datasets:
+  train_1pc_s1:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn1perclass_split1
+    template.vars.resize_resolution: 518
+    template.vars.crop_resolution: 518
+  train_1pc_s2:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn1perclass_split2
+    template.vars.resize_resolution: 518
+    template.vars.crop_resolution: 518
+  train_1pc_s3:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn1perclass_split3
+    template.vars.resize_resolution: 518
+    template.vars.crop_resolution: 518
+  train_2pc_s1:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn2perclass_split1
+    template.vars.resize_resolution: 518
+    template.vars.crop_resolution: 518
+  train_2pc_s2:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn2perclass_split2
+    template.vars.resize_resolution: 518
+    template.vars.crop_resolution: 518
+  train_2pc_s3:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn2perclass_split3
+    template.vars.resize_resolution: 518
+    template.vars.crop_resolution: 518
+  train_5pc_s1:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn5perclass_split1
+    template.vars.resize_resolution: 518
+    template.vars.crop_resolution: 518
+  train_5pc_s2:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn5perclass_split2
+    template.vars.resize_resolution: 518
+    template.vars.crop_resolution: 518
+  train_5pc_s3:
+    template: ${yaml:datasets/imagenet/train_noaug}
+    template.vars.version: imagenet1k_msn5perclass_split3
+    template.vars.resize_resolution: 518
+    template.vars.crop_resolution: 518
+  test:
+    template: ${yaml:datasets/imagenet/test_noaug}
+    template.vars.version: imagenet1k
+    template.vars.resize_resolution: 518
+    template.vars.crop_resolution: 518
+
+model:
+  kind: torch_hub_model
+  repo: facebookresearch/dinov2
+  model: dinov2_vitl14
+  mode: classifier
+  is_frozen: true
+
+trainer:
+  kind: classification_trainer
+  precision: bfloat16
+  backup_precision: float16
+  effective_batch_size: 128
+  max_epochs: 0
+  log_every_n_epochs: 1
+  callbacks:
+    - kind: offline_logreg_callback
+      every_n_epochs: 1
+      train_dataset_keys:
+        - train_1pc_s1
+        - train_1pc_s2
+        - train_1pc_s3
+        - train_2pc_s1
+        - train_2pc_s2
+        - train_2pc_s3
+        - train_5pc_s1
+        - train_5pc_s2
+        - train_5pc_s3
+      test_dataset_key: test
+      extractors:
+        - kind: vit_block_extractor
+          model_path: model
+          use_next_norm: false
+          block_indices: [ -1 ]
+          pooling:
+            kind: class_token

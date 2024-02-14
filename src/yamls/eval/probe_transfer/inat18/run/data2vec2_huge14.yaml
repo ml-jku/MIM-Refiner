@@ -1,0 +1,48 @@
+wandb: v4
+stage_name: probe-inat18
+name: data2vec2-huge14
+vars:
+  epochs: 50
+  pooling: class_token
+
+processors:
+  - kind: probe_processor
+    grid: dinov2-reduced
+    probe_kind: linear_probe
+    poolings:
+      - ${vars.pooling}
+      - concat_class_average
+
+datasets:
+  train:
+    template: ${yaml:datasets/inat/train_minaug}
+    template.vars.version: inat18
+  test:
+    template: ${yaml:datasets/inat/test_noaug}
+    template.vars.version: inat18
+
+model:
+  kind: probe_model
+  encoder:
+#    kind: vit.vit
+#    patch_size: 16
+#    kwargs: ${select:large:${yaml:models/vit}}
+    initializers:
+      - kind: pretrained_initializer
+        weights_file: data2vec2_huge14.pt
+        use_checkpoint_kwargs: true
+  heads: from_processor
+
+trainer:
+  kind: classification_trainer
+  precision: bfloat16
+  effective_batch_size: 256
+  max_epochs: ${vars.epochs}
+  log_every_n_epochs: 1
+  callbacks:
+    # accuracy
+    - kind: offline_accuracy_callback
+      every_n_epochs: 1
+      topk: [ 1 ]
+      dataset_key: test
+      to_cpu: true

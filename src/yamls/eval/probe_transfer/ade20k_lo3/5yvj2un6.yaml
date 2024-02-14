@@ -1,0 +1,48 @@
+wandb: v4
+stage_name: ade20k-probe
+name: 5yvj2un6--res224-e50-dinogrid-lo3
+processors:
+  - kind: probe_processor
+    probe_kind: semseg_probe
+    grid: dinov2-semseg-reduced
+    every_nth_block: 4
+vars:
+  stage_id: 5yvj2un6
+
+datasets:
+  train:
+    template: ${yaml:datasets/ade20k/train_minaug}
+    template.vars.resolution: 224
+  test:
+    template: ${yaml:datasets/ade20k/test_singlecrop}
+    template.vars.resolution: 224
+
+model:
+  kind: probe_model
+  norm_mode: batchnorm
+  encoder:
+#    kind: vit.vit
+#    patch_size: 16
+#    kwargs: ${select:large:${yaml:models/vit}}
+    initializers:
+      - kind: previous_run_initializer
+        stage_id: ${vars.stage_id}
+        stage_name: stage3
+        model_name: contrastive_model.encoder
+        model_info: ema=0.9999
+        checkpoint: last
+        use_checkpoint_kwargs: true
+  heads: from_processor
+
+trainer:
+  kind: semseg_trainer
+  precision: bfloat16
+  backup_precision: float16
+  max_epochs: 50
+  effective_batch_size: 16
+  log_every_n_epochs: 1
+  callbacks:
+    - kind: offline_semseg_callback
+      every_n_epochs: 1
+      dataset_key: test
+
