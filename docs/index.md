@@ -2,12 +2,12 @@
 
 
 <p align="center">
-<img width="80%" alt="mimrefiner_schematic" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/d235adce233e6a6179235b3d695b01927d73240b/docs/imgs/schematic.svg">
+<img width="100%" alt="mimrefiner_schematic" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/schematic.svg">
 </p>
 
 
 <p align="center">
-<img width="50%" alt="mimrefiner_schematic" src="https://github.com/ml-jku/MIM-Refiner/blob/56f7671a0fae3a1b9a79827273855a9ba6f51e66/docs/imgs/timeline.svg">
+<img width="80%" alt="mimrefiner_timeline" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/timeline.svg">
 </p>
 
 
