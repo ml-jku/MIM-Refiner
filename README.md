@@ -3,7 +3,7 @@
 
 TODO PapersWithCode badge
 
-[ [Code](https://github.com/ml-jku/MIM-Refiner) ] [ [Paper TODO](TODO) ]  [ [BibTeX](https://github.com/ml-jku/MIM-Refiner#citation) ]
+[[Project Page](https://ml-jku.github.io/MIM-Refiner)] [[Paper TODO](TODO)] [[Models](https://github.com/ml-jku/MIM-Refiner#pre-trained-models)] [[Logs](https://github.com/ml-jku/MIM-Refiner#logs)] [[BibTeX](https://github.com/ml-jku/MIM-Refiner#citation)]
 
 
 Pytorch implementation and pre-trained models of MIM-Refiner.
@@ -21,7 +21,11 @@ Pytorch implementation and pre-trained models of MIM-Refiner.
 <img width="50%" alt="mimrefiner_schematic" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/timeline.svg">
 </p>
 
-TODO
+coming shortly
+
+# Logs
+
+coming shortly
 
 
 # Train your own models
