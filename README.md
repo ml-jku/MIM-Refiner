@@ -44,9 +44,9 @@ If you like our work, please consider giving it a star :star: and cite us
 
 ```
 @article{alkin2024mimrefiner,
-      title={TODO}, 
-      author={TODO},
-      journal={TODO},
-      year={TODO}
+      title={MIM-Refiner: A Contrastive Learning Boost from Intermediate Pre-Trained Representations}, 
+      author={Benedikt Alkin and Lukas Miklautz and Sepp Hochreiter and Johannes Brandstetter},
+      journal={arXiv preprint arXiv:2402.10093},
+      year={2024}
 }
 ```
