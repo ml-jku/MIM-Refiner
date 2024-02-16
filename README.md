@@ -21,8 +21,9 @@ Pytorch implementation and pre-trained models of MIM-Refiner.
 
 # Pre-trained Models
 
+Pre-trained models can be found [here](https://ml.jku.at/research/mimrefiner/download/)
 
-coming shortly
+Integration via torchhub is coming shortly.
 
 # Logs
 
