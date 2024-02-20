@@ -53,7 +53,7 @@ class PrenormVit(nn.Module):
         self.blocks = nn.ModuleList([
             VitBlock(
                 dim=dim,
-                num_heads=num_heads,
+                num_attn_heads=num_heads,
                 mlp_hidden_dim=mlp_hidden_dim,
                 norm_ctor=nn.LayerNorm,
                 drop_path=dpr[i],
