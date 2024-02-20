@@ -1,6 +1,9 @@
 from functools import partial
 
-dependencies = ["torch", "kappamodules"]
+from hub.postnorm_vit import PostnormVit
+from hub.prenorm_vit import PrenormVit
+
+dependencies = ["torch", "kappamodules", "einops"]
 
 VIT_CONFIGS = dict(
     l16=dict(patch_size=16, embed_dim=1024, depth=24, num_heads=16),
@@ -9,35 +12,40 @@ VIT_CONFIGS = dict(
 )
 
 CONFIS = {
-    "MAE-Refined-L/16": dict(
-        kind="prenorm",
-        vit=VIT_CONFIGS["l16"],
-        url="...",
+    "mae_refined_l16": dict(
+        ctor=PrenormVit,
+        ctor_kwargs=VIT_CONFIGS["l16"],
+        url="https://ml.jku.at/research/mimrefiner/download/maerefined_l16.th",
     ),
-    "D2V2-Refined-L/16": dict(
-        kind="postnorm",
-        vit=VIT_CONFIGS["l16"],
-        url="...",
+    "d2v2_refined_l16": dict(
+        ctor=PostnormVit,
+        ctor_kwargs=VIT_CONFIGS["l16"],
+        url="https://ml.jku.at/research/mimrefiner/download/d2v2refined_l16.th",
     ),
-    "MAE-Refined-H/14": dict(
-        kind="prenorm",
-        vit=VIT_CONFIGS["h14"],
-        url="...",
+    "mae_refined_h14": dict(
+        ctor=PrenormVit,
+        ctor_kwargs=VIT_CONFIGS["h14"],
+        url="https://ml.jku.at/research/mimrefiner/download/maerefined_h14.th",
     ),
-    "D2V2-Refined-H/14": dict(
-        kind="postnorm",
-        vit=VIT_CONFIGS["h14"],
-        url="...",
+    "d2v2_refined_h14": dict(
+        ctor=PostnormVit,
+        ctor_kwargs=VIT_CONFIGS["h14"],
+        url="https://ml.jku.at/research/mimrefiner/download/d2v2refined_h14.th",
     ),
-    "MAE-Refined-2B/14": dict(
-        kind="prenorm",
-        vit=VIT_CONFIGS["twob14"],
-        url="...",
+    "mae_refined_twob14": dict(
+        ctor=PrenormVit,
+        ctor_kwargs=VIT_CONFIGS["twob14"],
+        url="https://ml.jku.at/research/mimrefiner/download/maerefined_twob14.th",
     ),
 }
 
-for model_type in AVAILABLE_MODELS:
-    for model_name in AVAILABLE_MODELS[model_type]:
-        globals()[f"{model_name}_{model_type}"] = partial(
-            build_model, model_name, model_type
-        )
+
+def load_state_dict(ctor, ctor_kwargs, url, **kwargs):
+    model = ctor(**ctor_kwargs, **kwargs)
+    sd = torch.hub.load_state_dict_from_url(url, map_location="cpu")
+    model.load_state_dict(sd)
+    return model
+
+
+for name, config in CONFIS.items():
+    globals()[name] = partial(load_state_dict, **config)
