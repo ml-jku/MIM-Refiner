@@ -1,5 +1,7 @@
 from functools import partial
 
+import torch
+
 from hub.postnorm_vit import PostnormVit
 from hub.prenorm_vit import PrenormVit
 
@@ -40,7 +42,7 @@ CONFIS = {
 }
 
 
-def load_state_dict(ctor, ctor_kwargs, url, **kwargs):
+def load_model(ctor, ctor_kwargs, url, **kwargs):
     model = ctor(**ctor_kwargs, **kwargs)
     sd = torch.hub.load_state_dict_from_url(url, map_location="cpu")
     model.load_state_dict(sd)
@@ -48,4 +50,6 @@ def load_state_dict(ctor, ctor_kwargs, url, **kwargs):
 
 
 for name, config in CONFIS.items():
-    globals()[name] = partial(load_state_dict, **config)
+    globals()[name] = partial(load_model, **config)
+
+mae_refined_l16()
