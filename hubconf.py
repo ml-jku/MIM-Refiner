@@ -6,9 +6,9 @@ from hub.prenorm_vit import PrenormVit
 dependencies = ["torch", "kappamodules", "einops"]
 
 VIT_CONFIGS = dict(
-    l16=dict(patch_size=16, embed_dim=1024, depth=24, num_heads=16),
-    h14=dict(patch_size=14, embed_dim=1280, depth=32, num_heads=16),
-    twob14=dict(patch_size=14, embed_dim=2560, depth=24, num_heads=32),
+    l16=dict(patch_size=16, dim=1024, depth=24, num_heads=16),
+    h14=dict(patch_size=14, dim=1280, depth=32, num_heads=16),
+    twob14=dict(patch_size=14, dim=2560, depth=24, num_heads=32),
 )
 
 CONFIS = {

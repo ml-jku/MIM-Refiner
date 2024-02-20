@@ -11,7 +11,7 @@ class PostnormVit(nn.Module):
             patch_size,
             dim,
             depth,
-            num_attn_heads,
+            num_heads,
             input_shape=(3, 224, 224),
             mlp_hidden_dim=None,
             drop_path_rate=0.,
@@ -24,7 +24,7 @@ class PostnormVit(nn.Module):
         self.patch_size = patch_size
         self.dim = dim
         self.depth = depth
-        self.num_attn_heads = num_attn_heads
+        self.num_heads = num_heads
         self.input_shape = input_shape
         self.drop_path_rate = drop_path_rate
         self.drop_path_decay = drop_path_decay
@@ -57,7 +57,7 @@ class PostnormVit(nn.Module):
         self.blocks = nn.ModuleList([
             PostnormBlock(
                 dim=dim,
-                num_heads=num_attn_heads,
+                num_heads=num_heads,
                 mlp_hidden_dim=mlp_hidden_dim,
                 norm_ctor=nn.LayerNorm,
                 drop_path=dpr[i],
