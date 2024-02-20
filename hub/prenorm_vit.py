@@ -1,6 +1,7 @@
 import einops
 import torch
-from kappamodules.vit import VitBlock, VitPatchEmbed, VitPosEmbed2d, VitClassTokens
+from kappamodules.transformer import PrenormBlock
+from kappamodules.vit import VitPatchEmbed, VitPosEmbed2d, VitClassTokens
 from torch import nn
 
 
@@ -51,7 +52,7 @@ class PrenormVit(nn.Module):
 
         # blocks
         self.blocks = nn.ModuleList([
-            VitBlock(
+            PrenormBlock(
                 dim=dim,
                 num_heads=num_heads,
                 mlp_hidden_dim=mlp_hidden_dim,
