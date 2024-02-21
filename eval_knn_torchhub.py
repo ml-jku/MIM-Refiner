@@ -37,7 +37,7 @@ def main(model, data_train, data_test, device, accelerator, num_workers, batch_s
         )
     else:
         print(f"loading model '{model}'")
-        model = torch.hub.load("jku-ml/MIM-Refiner", model).eval()
+        model = torch.hub.load("ml-jku/MIM-Refiner", model).eval()
 
     # init transform
     transform = Compose([
