@@ -23,7 +23,21 @@ Pytorch implementation and pre-trained models of MIM-Refiner.
 
 Pre-trained models can be found [here](https://ml.jku.at/research/mimrefiner/download/)
 
-Integration via torchhub is coming shortly.
+They can also be loaded via torchhub:
+```
+import torch
+
+model = torch.hub.load("ml-jku/MIM-Refiner", "mae_refined_l16")
+model = torch.hub.load("ml-jku/MIM-Refiner", "mae_refined_h14")
+model = torch.hub.load("ml-jku/MIM-Refiner", "mae_refined_twob14")
+model = torch.hub.load("ml-jku/MIM-Refiner", "d2v2_refined_l16")
+model = torch.hub.load("ml-jku/MIM-Refiner", "d2v2_refined_h14")
+```
+
+An example how to use torchhub models for a k-NN classifier can be found [here](https://github.com/ml-jku/MIM-Refiner/blob/main/eval_knn_torchhub.py).
+
+`python eval_knn_torchhub.py --model mae_refined_l16 --data_train /imagenet1k/train/ --data_test /imagenet1k/val`
+
 
 # Logs
 
