@@ -79,7 +79,7 @@ def main(model, data_train, data_test, device, accelerator, num_workers, batch_s
     train_y = []
     for x, y in tqdm(dataloader_train):
         x = x.to(device)
-        x = model(x)
+        x = model(x)[:, 0]
         train_x.append(x.cpu())
         train_y.append(y.clone())
     train_x = torch.concat(train_x)
@@ -91,7 +91,7 @@ def main(model, data_train, data_test, device, accelerator, num_workers, batch_s
     test_y = []
     for x, y in tqdm(dataloader_test):
         x = x.to(device)
-        x = model(x)
+        x = model(x)[:, 0]
         test_x.append(x.cpu())
         test_y.append(y.clone())
     test_x = torch.concat(test_x)
