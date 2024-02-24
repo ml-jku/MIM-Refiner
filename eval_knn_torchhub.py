@@ -22,12 +22,13 @@ def parse_args():
     parser.add_argument("--batch_size", type=int, default=128)
     parser.add_argument("--k", type=int, default=20)
     parser.add_argument("--tau", type=float, default=0.07)
+    parser.add_argument("--precision", type=str, default="fp16")
     parser.add_argument("--testrun", action="store_true")
     return vars(parser.parse_args())
 
 
 @torch.no_grad()
-def main(model, data_train, data_test, device, accelerator, num_workers, batch_size, k, tau, testrun):
+def main(model, data_train, data_test, device, accelerator, num_workers, batch_size, k, tau, precision, testrun):
     # init model
     if testrun:
         print("testrun -> using testmodel")
@@ -69,6 +70,18 @@ def main(model, data_train, data_test, device, accelerator, num_workers, batch_s
     print(f"initialized device: '{device}'")
     model = model.to(device)
 
+    # initialize autocast
+    if precision in ["fp16", "float16"]:
+        precision = torch.float16
+    elif precision in ["bf16", "bfloat16"]:
+        precision = torch.bfloat16
+    elif precision in ["fp32", "float32"]:
+        precision = torch.float32
+    else:
+        raise NotImplementedError(f"invalid precision: {precision}")
+    print(f"using precision: {precision}")
+    autocast = torch.autocast(str(device).split(":")[0], dtype=precision)
+
     # dont use multi-processing dataloading for testrun
     if testrun:
         num_workers = 0
@@ -79,7 +92,8 @@ def main(model, data_train, data_test, device, accelerator, num_workers, batch_s
     train_y = []
     for x, y in tqdm(dataloader_train):
         x = x.to(device)
-        x = model(x)[:, 0]
+        with autocast:
+            x = model(x)[:, 0]
         train_x.append(x.cpu())
         train_y.append(y.clone())
     train_x = torch.concat(train_x)
@@ -91,7 +105,8 @@ def main(model, data_train, data_test, device, accelerator, num_workers, batch_s
     test_y = []
     for x, y in tqdm(dataloader_test):
         x = x.to(device)
-        x = model(x)[:, 0]
+        with autocast:
+            x = model(x)[:, 0]
         test_x.append(x.cpu())
         test_y.append(y.clone())
     test_x = torch.concat(test_x)
