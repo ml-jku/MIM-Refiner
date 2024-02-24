@@ -4,6 +4,7 @@ from pathlib import Path
 
 import einops
 import torch
+import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from torch.utils.data import Subset
 from torchvision.datasets import ImageFolder
