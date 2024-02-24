@@ -20,7 +20,7 @@ def parse_args():
     parser.add_argument("--accelerator", type=str, default="gpu")
     parser.add_argument("--num_workers", type=int, default=10)
     parser.add_argument("--batch_size", type=int, default=128)
-    parser.add_argument("--k", type=int, default=10)
+    parser.add_argument("--k", type=int, default=20)
     parser.add_argument("--tau", type=float, default=0.07)
     parser.add_argument("--testrun", action="store_true")
     return vars(parser.parse_args())
@@ -119,6 +119,7 @@ def knn(train_x, train_y, test_x, test_y, k=10, tau=0.07, batch_size=128, eps=1e
 
     # normalize to length 1
     train_x.div_(train_x.norm(p=2, dim=1, keepdim=True).clamp_min(1e-12))
+    test_x = F.normalize(test_x, dim=1)
 
     # initialize onehot vector per class (used for counting votes in classification)
     num_classes = max(train_y.max(), test_y.max()) + 1
