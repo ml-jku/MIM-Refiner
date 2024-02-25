@@ -36,7 +36,7 @@ model = torch.hub.load("ml-jku/MIM-Refiner", "d2v2_refined_h14")
 
 An example how to use torchhub models for a k-NN classifier can be found [here](https://github.com/ml-jku/MIM-Refiner/blob/main/eval_knn_torchhub.py).
 
-`python eval_knn_torchhub.py --model mae_refined_l16 --data_train /imagenet1k/train/ --data_test /imagenet1k/val`
+`python eval_knn_torchhub.py --model mae_refined_l16 --data_train /imagenet/train/ --data_test /imagenet/val`
 
 Note that the results of this script can differ slightly from the the paper results as the paper results remove the last LayerNorm of pre-norm ViTs and use bfloat16 precision.
 
