@@ -38,6 +38,7 @@ An example how to use torchhub models for a k-NN classifier can be found [here](
 
 `python eval_knn_torchhub.py --model mae_refined_l16 --data_train /imagenet1k/train/ --data_test /imagenet1k/val`
 
+Note that the results of this script can differ slightly from the the paper results as the paper results remove the last LayerNorm of pre-norm ViTs and use bfloat16 precision.
 
 # Logs
 
