@@ -7,7 +7,7 @@
 
 
 
-[[Project Page](https://ml-jku.github.io/MIM-Refiner)] [[Paper](https://arxiv.org/abs/2402.10093)] [[Models](https://github.com/ml-jku/MIM-Refiner#pre-trained-models)] [[Logs](https://github.com/ml-jku/MIM-Refiner#logs)] [[BibTeX](https://github.com/ml-jku/MIM-Refiner#citation)]
+[[`Project Page`](https://ml-jku.github.io/MIM-Refiner)] [[`Paper`](https://arxiv.org/abs/2402.10093)] [[`Models`](https://github.com/ml-jku/MIM-Refiner#pre-trained-models)] [[`Codebase Demo Video`](https://youtu.be/80kc3hscTTg)] [[`Logs`](https://github.com/ml-jku/MIM-Refiner#logs)] [[`BibTeX`](https://github.com/ml-jku/MIM-Refiner#citation)]
 
 
 Pytorch implementation and pre-trained models of MIM-Refiner.
