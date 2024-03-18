@@ -1,0 +1,9 @@
+kind: cifar100
+split: train
+sample_wrappers:
+  - kind: x_transform_wrapper
+    transform:
+      - kind: kd_resize
+        size: 224
+        interpolation: bicubic
+      - kind: kd_imagenet_norm
