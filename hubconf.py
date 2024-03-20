@@ -8,12 +8,18 @@ from hub.prenorm_vit import PrenormVit
 dependencies = ["torch", "kappamodules", "einops"]
 
 VIT_CONFIGS = dict(
+    debug=dict(patch_size=16, dim=16, depth=2, num_heads=2),
     l16=dict(patch_size=16, dim=1024, depth=24, num_heads=16),
     h14=dict(patch_size=14, dim=1280, depth=32, num_heads=16),
     twob14=dict(patch_size=14, dim=2560, depth=24, num_heads=32),
 )
 
 CONFIS = {
+    "debug": dict(
+        ctor=PrenormVit,
+        ctor_kwargs=VIT_CONFIGS["debug"],
+        url=None,
+    ),
     "mae_refined_l16": dict(
         ctor=PrenormVit,
         ctor_kwargs=VIT_CONFIGS["l16"],
@@ -44,8 +50,9 @@ CONFIS = {
 
 def load_model(ctor, ctor_kwargs, url, **kwargs):
     model = ctor(**ctor_kwargs, **kwargs)
-    sd = torch.hub.load_state_dict_from_url(url, map_location="cpu")
-    model.load_state_dict(sd["state_dict"])
+    if url is not None:
+        sd = torch.hub.load_state_dict_from_url(url, map_location="cpu")
+        model.load_state_dict(sd["state_dict"])
     return model
 
 
