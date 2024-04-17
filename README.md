@@ -4,7 +4,7 @@
 
 [[`Project Page`](https://ml-jku.github.io/MIM-Refiner)] [[`Paper`](https://arxiv.org/abs/2402.10093)] [[`Models`](https://github.com/ml-jku/MIM-Refiner#pre-trained-models)] [[`Codebase
 Demo
-Video`](https://youtu.be/80kc3hscTTg)] [[`Logs`](https://github.com/ml-jku/MIM-Refiner#logs)] [[`BibTeX`](https://github.com/ml-jku/MIM-Refiner#citation)]
+Video`](https://youtu.be/80kc3hscTTg)] [[`BibTeX`](https://github.com/ml-jku/MIM-Refiner#citation)]
 
 Pytorch implementation and pre-trained models of MIM-Refiner.
 
@@ -38,9 +38,6 @@ found [here](https://github.com/ml-jku/MIM-Refiner/blob/main/eval_knn_torchhub.p
 Note that the results of this script can differ slightly from the the paper results as the paper results remove the last
 LayerNorm of pre-norm ViTs and use bfloat16 precision.
 
-# Logs
-
-coming shortly
 
 # Train your own models
 

@@ -2,7 +2,7 @@
 
 
 
-[[Code](https://github.com/ml-jku/MIM-Refiner)] [[Paper](https://arxiv.org/abs/2402.10093)] [[Models](https://github.com/ml-jku/MIM-Refiner#pre-trained-models)] [[Codebase Demo Video](https://youtu.be/80kc3hscTTg)] [[Logs](https://github.com/ml-jku/MIM-Refiner#logs)] [[BibTeX](https://github.com/ml-jku/MIM-Refiner#citation)]
+[[Code](https://github.com/ml-jku/MIM-Refiner)] [[Paper](https://arxiv.org/abs/2402.10093)] [[Models](https://github.com/ml-jku/MIM-Refiner#pre-trained-models)] [[Codebase Demo Video](https://youtu.be/80kc3hscTTg)] [[BibTeX](https://github.com/ml-jku/MIM-Refiner#citation)]
 
 
 
