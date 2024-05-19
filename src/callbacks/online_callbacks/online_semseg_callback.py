@@ -36,7 +36,7 @@ class OnlineSemsegCallback(PeriodicCallback):
         for name, tracked_mious in self.tracked_mious.items():
             mean = all_reduce_mean_grad(torch.stack(tracked_mious).mean())
             self.writer.add_scalar(
-                key=f"mIoU/online/{name}/{self.to_short_interval_string()}",
+                key=f"miou/online/{name}/{self.to_short_interval_string()}",
                 value=mean,
                 **kwargs,
             )

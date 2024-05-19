@@ -1,0 +1,6 @@
+kind: ade20k
+split: val
+sample_wrappers:
+  - kind: semseg_transform_wrapper
+    transforms:
+      - kind: kd_image_net_norm

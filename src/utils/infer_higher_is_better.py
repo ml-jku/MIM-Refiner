@@ -23,7 +23,7 @@ HIGHER_IS_BETTER_KEYS = [
     "best_f1/TN",
     "best_f1/TP",
     "best_f1/f1",
-    "mIoU",
+    "miou",
     "silhouette",
     "pseudo_acc",
     "nn-accuracy",

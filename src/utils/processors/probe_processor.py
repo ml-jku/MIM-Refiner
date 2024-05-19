@@ -203,16 +203,16 @@ class ProbeProcessor:
             summarizers += [
                 dict(
                     kind="best_metric_summary_summarizer",
-                    pattern="mIoU/test/*/max",
+                    pattern="miou/test/*/max",
                 ),
                 dict(
                     kind="best_metric_summary_summarizer",
-                    pattern="mIoU/test/*/max",
+                    pattern="miou/test/*/max",
                     contains="_img_",
                 ),
                 dict(
                     kind="best_metric_summary_summarizer",
-                    pattern="mIoU/test/*/max",
+                    pattern="miou/test/*/max",
                     contains="_imgcls_",
                 ),
             ]
@@ -220,7 +220,7 @@ class ProbeProcessor:
                 summarizers += [
                     dict(
                         kind="best_metric_summary_summarizer",
-                        pattern="mIoU/test/*/max",
+                        pattern="miou/test/*/max",
                         contains=f"last{num_last_blocks}",
                     ),
                 ]

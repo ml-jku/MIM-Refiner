@@ -51,6 +51,6 @@ class OfflineSemsegCallback(PeriodicCallback):
         # log
         for name, miou in mious.items():
             miou = miou.mean()
-            key = f"mIoU/{self.dataset_key}/{name}"
+            key = f"miou/{self.dataset_key}/{name}"
             self.logger.info(f"{key}: {miou:.6f}")
             self.writer.add_scalar(key, miou)

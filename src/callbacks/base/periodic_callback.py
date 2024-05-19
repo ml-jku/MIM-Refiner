@@ -286,6 +286,8 @@ class PeriodicCallback(CallbackBase):
                 # List[List[Tensor]] -> List[Tensor]
                 result = [torch.concat(item) for item in zip(*result)]
                 result = [all_gather_nograd_clipped(item, global_dataset_len) for item in result]
+            elif result[0] is None:
+                return None
             else:
                 if torch.is_tensor(result[0]):
                     # List[Tensor] -> Tensor
