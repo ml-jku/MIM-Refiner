@@ -25,6 +25,11 @@ CONFIS = {
         ctor_kwargs=VIT_CONFIGS["l16"],
         url="https://ml.jku.at/research/mimrefiner/download/maerefined_l16.th",
     ),
+    "crossmae_refined_l16": dict(
+        ctor=PrenormVit,
+        ctor_kwargs=VIT_CONFIGS["l16"],
+        url="https://ml.jku.at/research/mimrefiner/download/crossmaerefined_l16.th",
+    ),
     "dbot_refined_l16": dict(
         ctor=PrenormVit,
         ctor_kwargs=VIT_CONFIGS["l16"],
@@ -39,6 +44,11 @@ CONFIS = {
         ctor=PrenormVit,
         ctor_kwargs=VIT_CONFIGS["h14"],
         url="https://ml.jku.at/research/mimrefiner/download/maerefined_h14.th",
+    ),
+    "dbot_refined_h14": dict(
+        ctor=PrenormVit,
+        ctor_kwargs=VIT_CONFIGS["h14"],
+        url="https://ml.jku.at/research/mimrefiner/download/dbotrefined_h14.th",
     ),
     "d2v2_refined_h14": dict(
         ctor=PostnormVit,
