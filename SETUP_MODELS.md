@@ -44,6 +44,13 @@ wget https://dl.fbaipublicfiles.com/ijepa/IN1K-vit.h.16-448px-300e.pth.tar -O ij
 wget https://lf3-nlp-opensource.bytetos.com/obj/nlp-opensource/archive/2022/ibot/vitl_16_rand_mask/checkpoint.pth -O ibot_large16_rand.pth
 wget https://lf3-nlp-opensource.bytetos.com/obj/nlp-opensource/archive/2022/ibot/vitl_16_pt22k/checkpoint.pth -O ibot_large16_in22k.pth
 
+# dBOT
+wget https://lf3-nlp-opensource.bytetos.com/obj/nlp-opensource/mmodal/dbot/86.6_dbot_large_pre.pth -O dbot_large16.pth
+wget https://lf3-nlp-opensource.bytetos.com/obj/nlp-opensource/mmodal/dbot/87.4_dbot_huge_pre.pth -O dbot_huge14.pth
+
+# CrossMAE
+wget https://huggingface.co/longlian/CrossMAE/resolve/main/vitl-mr0.75-kmr0.75-dd12/imagenet-mae-cross-vitl-pretrain-wfm-mr0.75-kmr0.75-dd12-ep800-ui.pth -O crossmae_large16.pth
+
 # DINO
 wget https://dl.fbaipublicfiles.com/dino/dino_vitbase8_pretrain/dino_vitbase8_pretrain.pth -O dino_base8.pth
 ```
