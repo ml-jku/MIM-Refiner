@@ -26,3 +26,28 @@ In comparison, over the last 4 years, state-of-the-art improved by +2.6%.
 <img width="80%" alt="mimrefiner_timeline" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/timeline.svg">
 </p>
 
+
+
+This improvement in linear probing correlates with strong improvements in k-NN accuracy and low-shot classification accuracies on ImageNet-1K.
+
+<p align="center">
+<img width="80%" alt="mimrefiner_timeline" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/in1k_lowshot.svg">
+</p>
+
+
+
+MIM-Refiner learns general purpose features that can be easily transferred to a diverse set of datasets.
+
+<p align="center">
+<img width="80%" alt="mimrefiner_timeline" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/transfer.svg">
+</p>
+
+
+
+An improvement is also visible (although smaller) when fully fine-tuning the models on large amounts of data.
+
+<p align="center">
+<img width="80%" alt="mimrefiner_timeline" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/finetuning.svg">
+</p>
+
+
