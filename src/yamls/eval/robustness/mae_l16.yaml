@@ -1,0 +1,68 @@
+wandb: v4
+name: mae-l16
+stage_name: robustness
+
+datasets:
+  imagenet_a:
+    kind: imagenet_a
+    sample_wrappers:
+      - kind: x_transform_wrapper
+        transform:
+          - kind: kd_resize
+            size: 256
+            interpolation: bicubic
+          - kind: center_crop
+            size: 224
+          - kind: kd_image_net_norm
+  imagenet_r:
+    kind: imagenet_r
+    sample_wrappers:
+      - kind: x_transform_wrapper
+        transform:
+          - kind: kd_resize
+            size: 256
+            interpolation: bicubic
+          - kind: center_crop
+            size: 224
+          - kind: kd_image_net_norm
+  imagenet_sketch:
+    template: ${yaml:datasets/imagenet/test_noaug}
+    template.vars.version: imagenet_sketch
+  test:
+    template: ${yaml:datasets/imagenet/test_noaug}
+    template.vars.version: imagenet1k
+
+model:
+  kind: vit.vit
+  patch_size: 16
+  kwargs: ${select:large:${yaml:models/vit}}
+  mode: classifier
+  pooling:
+    kind: class_token
+  is_frozen: true
+  initializers:
+    - kind: pretrained_initializer
+      weights_file: finetuned/mae_large16_finetuned.th
+
+trainer:
+  kind: classification_trainer
+  precision: bfloat16
+  backup_precision: float16
+  max_epochs: 0
+  effective_batch_size: 256
+  log_every_n_epochs: 1
+  callbacks:
+    - kind: offline_imagenet_c_callback
+      every_n_epochs: 1
+    - kind: offline_classsubset_accuracy_callback
+      every_n_epochs: 1
+      dataset_key: imagenet_a
+    - kind: offline_classsubset_accuracy_callback
+      every_n_epochs: 1
+      dataset_key: imagenet_r
+    - kind: offline_accuracy_callback
+      every_n_epochs: 1
+      dataset_key: imagenet_sketch
+    - kind: offline_accuracy_callback
+      every_n_epochs: 1
+      dataset_key: test
