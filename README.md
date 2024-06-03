@@ -52,6 +52,10 @@ found [here](https://www.youtube.com/watch?v=80kc3hscTTg).
 Configurations to train, evaluate or analyze models can be
 found [here](https://github.com/ml-jku/MIM-Refiner/tree/main/src/yamls).
 
+# VTAB-1K evaluations
+
+The evaluations of VTAB-1K were done with [this](https://github.com/BenediktAlkin/vtab1k-pytorch) codebase by loading the pre-trained models from torchhub.
+
 # Citation
 
 If you like our work, please consider giving it a star :star: and cite us
