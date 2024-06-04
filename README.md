@@ -23,13 +23,17 @@ They can also be loaded via torchhub:
 ```
 import torch
 
+# MAE
 model = torch.hub.load("ml-jku/MIM-Refiner", "mae_refined_l16")
 model = torch.hub.load("ml-jku/MIM-Refiner", "mae_refined_h14")
 model = torch.hub.load("ml-jku/MIM-Refiner", "mae_refined_twob14")
+# D2V2
 model = torch.hub.load("ml-jku/MIM-Refiner", "d2v2_refined_l16")
 model = torch.hub.load("ml-jku/MIM-Refiner", "d2v2_refined_h14")
+# dBOT
 model = torch.hub.load("ml-jku/MIM-Refiner", "dbot_refined_l16")
 model = torch.hub.load("ml-jku/MIM-Refiner", "dbot_refined_h14")
+# CrossMAE
 model = torch.hub.load("ml-jku/MIM-Refiner", "crossmae_refined_l16")
 ```
 
