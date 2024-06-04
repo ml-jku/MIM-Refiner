@@ -28,6 +28,9 @@ model = torch.hub.load("ml-jku/MIM-Refiner", "mae_refined_h14")
 model = torch.hub.load("ml-jku/MIM-Refiner", "mae_refined_twob14")
 model = torch.hub.load("ml-jku/MIM-Refiner", "d2v2_refined_l16")
 model = torch.hub.load("ml-jku/MIM-Refiner", "d2v2_refined_h14")
+model = torch.hub.load("ml-jku/MIM-Refiner", "dbot_refined_l16")
+model = torch.hub.load("ml-jku/MIM-Refiner", "dbot_refined_h14")
+model = torch.hub.load("ml-jku/MIM-Refiner", "crossmae_refined_l16")
 ```
 
 An example how to use torchhub models for a k-NN classifier can be
