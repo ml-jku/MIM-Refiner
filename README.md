@@ -1,7 +1,8 @@
 # MIM-Refiner
 
+- [#1 Self-supervised learning](https://paperswithcode.com/sota/self-supervised-image-classification-on?p=mim-refiner-a-contrastive-learning-boost-from) (excluding DINOv2 that was trained on a private dataset with 100x more data than MIM-Refiner)
+- [#1 ImageNet-1K Clustering](https://paperswithcode.com/sota/image-clustering-on-imagenet?p=mim-refiner-a-contrastive-learning-boost-from) (excluding ensembles)
 
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/mim-refiner-a-contrastive-learning-boost-from/self-supervised-image-classification-on)](https://paperswithcode.com/sota/self-supervised-image-classification-on?p=mim-refiner-a-contrastive-learning-boost-from) [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/mim-refiner-a-contrastive-learning-boost-from/image-clustering-on-imagenet)](https://paperswithcode.com/sota/image-clustering-on-imagenet?p=mim-refiner-a-contrastive-learning-boost-from)
 
 [[`Project Page`](https://ml-jku.github.io/MIM-Refiner)] [[`Paper`](https://arxiv.org/abs/2402.10093)] [[`Models`](https://github.com/ml-jku/MIM-Refiner#pre-trained-models)] [[`Codebase
 Demo
