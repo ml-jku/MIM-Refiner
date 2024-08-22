@@ -1,0 +1,841 @@
+wandb: v4
+stage_name: ade20k-probe
+name: mae-l16--res224-e50-perblock
+
+datasets:
+  train:
+    template: ${yaml:datasets/ade20k/train_minaug}
+    template.vars.resolution: 224
+  test:
+    template: ${yaml:datasets/ade20k/test_singlecrop}
+    template.vars.resolution: 224
+
+model:
+  kind: probe_model
+  norm_mode: batchnorm
+  encoder:
+#    kind: vit.vit
+#    patch_size: 16
+#    kwargs: ${select:large:${yaml:models/vit}}
+    initializers:
+      - kind: pretrained_initializer
+        weights_file: mae_huge14.pth
+        use_checkpoint_kwargs: true
+  heads:
+    lr001_img_block0:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 0
+        pooling:
+          kind: to_image
+    lr001_img_block1:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 1
+        pooling:
+          kind: to_image
+    lr001_img_block2:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 2
+        pooling:
+          kind: to_image
+    lr001_img_block3:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 3
+        pooling:
+          kind: to_image
+    lr001_img_block4:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 4
+        pooling:
+          kind: to_image
+    lr001_img_block5:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 5
+        pooling:
+          kind: to_image
+    lr001_img_block6:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 6
+        pooling:
+          kind: to_image
+    lr001_img_block7:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 7
+        pooling:
+          kind: to_image
+    lr001_img_block8:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 8
+        pooling:
+          kind: to_image
+    lr001_img_block9:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 9
+        pooling:
+          kind: to_image
+    lr001_img_block10:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 10
+        pooling:
+          kind: to_image
+    lr001_img_block11:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 11
+        pooling:
+          kind: to_image
+    lr001_img_block12:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 12
+        pooling:
+          kind: to_image
+    lr001_img_block13:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 13
+        pooling:
+          kind: to_image
+    lr001_img_block14:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 14
+        pooling:
+          kind: to_image
+    lr001_img_block15:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 15
+        pooling:
+          kind: to_image
+    lr001_img_block16:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 16
+        pooling:
+          kind: to_image
+    lr001_img_block17:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 17
+        pooling:
+          kind: to_image
+    lr001_img_block18:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 18
+        pooling:
+          kind: to_image
+    lr001_img_block19:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 19
+        pooling:
+          kind: to_image
+    lr001_img_block20:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 20
+        pooling:
+          kind: to_image
+    lr001_img_block21:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 21
+        pooling:
+          kind: to_image
+    lr001_img_block22:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 22
+        pooling:
+          kind: to_image
+    lr001_img_block23:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 23
+        pooling:
+          kind: to_image
+    lr001_img_block24:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 24
+        pooling:
+          kind: to_image
+    lr001_img_block25:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 25
+        pooling:
+          kind: to_image
+    lr001_img_block26:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 26
+        pooling:
+          kind: to_image
+    lr001_img_block27:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 27
+        pooling:
+          kind: to_image
+    lr001_img_block28:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 28
+        pooling:
+          kind: to_image
+    lr001_img_block29:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 29
+        pooling:
+          kind: to_image
+    lr001_img_block30:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 30
+        pooling:
+          kind: to_image
+    lr001_img_block31:
+      kind: probe.semseg_probe
+      optim:
+        kind: sgd
+        momentum: 0.9
+        schedule:
+        - schedule:
+            kind: linear_increasing_schedule
+            exclude_first: true
+            exclude_last: true
+          end_percent: 0.1
+        - schedule:
+            kind: cosine_decreasing_schedule
+            exclude_last: true
+            end_value: 1.0e-06
+        lr: 0.1
+      pooling:
+        kind: extractor_pooling
+        extractor:
+          kind: vit_block_extractor
+          model_path: null
+          add_model_path_to_repr: false
+          block_index: 31
+        pooling:
+          kind: to_image
+
+trainer:
+  kind: semseg_trainer
+  precision: bfloat16
+  backup_precision: float16
+  max_epochs: 50
+  effective_batch_size: 16
+  log_every_n_epochs: 1
+  callbacks:
+    - kind: offline_segmentation_callback
+      every_n_epochs: 10
+      batch_size: 1
+      dataset_key: test
+      ignore_index: -1
+      mode: slide
+      mode_kwargs:
+        stride: [ 170, 170 ]
