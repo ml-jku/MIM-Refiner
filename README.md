@@ -58,7 +58,7 @@ A video to motivate design choices of the codebase and give an overview of the c
 found [here](https://www.youtube.com/watch?v=80kc3hscTTg).
 
 Configurations to train, evaluate or analyze models can be
-found [here](https://github.com/ml-jku/MIM-Refiner/tree/main/src/yamls).
+found [here](https://github.com/ml-jku/MIM-Refiner/tree/main/src/yamls). Note that MIM-Refiner is trained in 2 stages. "stage 2" trains only the ID heads with a frozen encoder, to ensure a good and stable learning signal for "stage 3" where the encoder is then trained. "stage 2" needs significantly less compute resources and can also be used to get a quick estimate if hyperparameters are suited (temperature, head learning rate, ...). 
 
 # VTAB-1K evaluations
 
