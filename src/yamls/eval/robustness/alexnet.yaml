@@ -1,0 +1,36 @@
+wandb: v4
+name: alexnet
+stage_name: robustness
+
+datasets:
+  test:
+    kind: imagenet
+    version: imagenet1k
+    split: test
+    sample_wrappers:
+      - kind: x_transform_wrapper
+        transform:
+          - kind: kd_resize
+            size: 256
+            interpolation: bilinear
+          - kind: center_crop
+            size: 224
+          - kind: kd_image_net_norm
+
+model:
+  kind: pretrained_alexnet
+  is_frozen: true
+
+trainer:
+  kind: classification_trainer
+  precision: bfloat16
+  backup_precision: float16
+  max_epochs: 0
+  effective_batch_size: 256
+  log_every_n_epochs: 1
+  callbacks:
+    - kind: offline_imagenet_c_callback
+      every_n_epochs: 1
+    - kind: offline_accuracy_callback
+      every_n_epochs: 1
+      dataset_key: test
