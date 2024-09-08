@@ -1,7 +1,3 @@
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/mim-refiner-a-contrastive-learning-boost-from/self-supervised-image-classification-on)](https://paperswithcode.com/sota/self-supervised-image-classification-on?p=mim-refiner-a-contrastive-learning-boost-from) [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/mim-refiner-a-contrastive-learning-boost-from/image-clustering-on-imagenet)](https://paperswithcode.com/sota/image-clustering-on-imagenet?p=mim-refiner-a-contrastive-learning-boost-from)
-
-
-
 [[Code](https://github.com/ml-jku/MIM-Refiner)] [[Paper](https://arxiv.org/abs/2402.10093)] [[Models](https://github.com/ml-jku/MIM-Refiner#pre-trained-models)] [[Codebase Demo Video](https://youtu.be/80kc3hscTTg)] [[BibTeX](https://github.com/ml-jku/MIM-Refiner#citation)]
 
 
@@ -23,7 +19,7 @@ In comparison, over the last 4 years, state-of-the-art improved by +2.6%.
 
 
 <p align="center">
-<img width="80%" alt="mimrefiner_timeline" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/timeline.svg">
+<img width="60%" alt="mimrefiner_timeline" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/timeline.svg">
 </p>
 
 
@@ -32,7 +28,7 @@ while being easy to scale up to extremely large models.
 
 
 <p align="center">
-<img width="50%" alt="mimrefiner_spider" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/spider.svg">
+<img width="60%" alt="mimrefiner_spider" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/spider.svg">
 </p>
 
 
