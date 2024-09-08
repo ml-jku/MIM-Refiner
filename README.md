@@ -15,6 +15,15 @@ Pytorch implementation and pre-trained models of MIM-Refiner.
 <img width="90%" alt="mimrefiner_schematic" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/schematic.svg">
 </p>
 
+
+MIM-Refiner efficiently combines the advantages of MIM and ID models and surpasses previous state-of-the-art methods
+while being easy to scale up to extremely large models.
+
+
+<p align="center">
+<img width="80%" alt="mimrefiner_spider" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/spider.svg">
+</p>
+
 # Pre-trained Models
 
 Pre-trained models can be found [here](https://ml.jku.at/research/mimrefiner/download/)

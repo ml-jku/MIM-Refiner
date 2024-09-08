@@ -27,27 +27,14 @@ In comparison, over the last 4 years, state-of-the-art improved by +2.6%.
 </p>
 
 
+MIM-Refiner efficiently combines the advantages of MIM and ID models and surpasses previous state-of-the-art methods
+while being easy to scale up to extremely large models.
 
-This improvement in linear probing correlates with strong improvements in k-NN accuracy and low-shot classification accuracies on ImageNet-1K.
 
 <p align="center">
-<img width="80%" alt="mimrefiner_lowshot" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/in1k_lowshot.png">
+<img width="80%" alt="mimrefiner_spider" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/spider.svg">
 </p>
 
 
-
-MIM-Refiner learns general purpose features that can be easily transferred to a diverse set of datasets.
-
-<p align="center">
-<img width="80%" alt="mimrefiner_transfer" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/transfer.png">
-</p>
-
-
-
-An improvement is also visible (although smaller) when fully fine-tuning the models on large amounts of data.
-
-<p align="center">
-<img width="80%" alt="mimrefiner_finetuning" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/finetuning.png">
-</p>
 
 
