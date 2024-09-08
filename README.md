@@ -69,9 +69,11 @@ found [here](https://www.youtube.com/watch?v=80kc3hscTTg).
 Configurations to train, evaluate or analyze models can be
 found [here](https://github.com/ml-jku/MIM-Refiner/tree/main/src/yamls). Note that MIM-Refiner is trained in 2 stages. "stage 2" trains only the ID heads with a frozen encoder, to ensure a good and stable learning signal for "stage 3" where the encoder is then trained. "stage 2" needs significantly less compute resources and can also be used to get a quick estimate if hyperparameters are suited (temperature, head learning rate, ...). 
 
-# VTAB-1K evaluations
+# External Evaluation Frameworks
 
 The evaluations of VTAB-1K were done with [this](https://github.com/BenediktAlkin/vtab1k-pytorch) codebase by loading the pre-trained models from torchhub.
+
+The evaluations for ADE20K semantic segmentation were done with [this](https://github.com/BenediktAlkin/KappaSegmentation) codebase by loading the pre-trained models from torchhub.
 
 # Citation
 
