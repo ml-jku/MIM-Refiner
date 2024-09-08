@@ -21,7 +21,7 @@ while being easy to scale up to extremely large models.
 
 
 <p align="center">
-<img width="80%" alt="mimrefiner_spider" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/spider.svg">
+<img width="50%" alt="mimrefiner_spider" src="https://raw.githubusercontent.com/ml-jku/MIM-Refiner/main/docs/imgs/spider.svg">
 </p>
 
 # Pre-trained Models
