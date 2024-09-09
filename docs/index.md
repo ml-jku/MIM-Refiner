@@ -2,7 +2,7 @@
 [[#1 ImageNet-1K Clustering (without extra data)](https://paperswithcode.com/sota/image-clustering-on-imagenet?p=mim-refiner-a-contrastive-learning-boost-from)]
 
 
-[[Code](https://github.com/ml-jku/MIM-Refiner)] [[Paper](https://arxiv.org/abs/2402.10093)] [[Models](https://github.com/ml-jku/MIM-Refiner#pre-trained-models)] [[Codebase Demo Video](https://youtu.be/80kc3hscTTg)] [[BibTeX](https://github.com/ml-jku/MIM-Refiner#citation)]
+[[Code](https://github.com/ml-jku/MIM-Refiner)] [[Paper](https://arxiv.org/abs/2402.10093)] [[Models](https://github.com/ml-jku/MIM-Refiner#pre-trained-models)] [[Codebase Demo Video](https://youtu.be/80kc3hscTTg)] [[Model Training Demo Video](https://youtu.be/mS_Lsjfxfko)] [[BibTeX](https://github.com/ml-jku/MIM-Refiner#citation)]
 
 
 

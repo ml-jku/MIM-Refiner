@@ -5,7 +5,7 @@
 
 [[`Project Page`](https://ml-jku.github.io/MIM-Refiner)] [[`Paper`](https://arxiv.org/abs/2402.10093)] [[`Models`](https://github.com/ml-jku/MIM-Refiner#pre-trained-models)] [[`Codebase
 Demo
-Video`](https://youtu.be/80kc3hscTTg)] [[`BibTeX`](https://github.com/ml-jku/MIM-Refiner#citation)]
+Video`](https://youtu.be/80kc3hscTTg)] [[`Model Training Demo Video`](https://youtu.be/mS_Lsjfxfko)] [[`BibTeX`](https://github.com/ml-jku/MIM-Refiner#citation)]
 
 Pytorch implementation and pre-trained models of MIM-Refiner.
 
@@ -67,7 +67,9 @@ A video to motivate design choices of the codebase and give an overview of the c
 found [here](https://www.youtube.com/watch?v=80kc3hscTTg).
 
 Configurations to train, evaluate or analyze models can be
-found [here](https://github.com/ml-jku/MIM-Refiner/tree/main/src/yamls). Note that MIM-Refiner is trained in 2 stages. "stage 2" trains only the ID heads with a frozen encoder, to ensure a good and stable learning signal for "stage 3" where the encoder is then trained. "stage 2" needs significantly less compute resources and can also be used to get a quick estimate if hyperparameters are suited (temperature, head learning rate, ...). 
+found [here](https://github.com/ml-jku/MIM-Refiner/tree/main/src/yamls). Note that MIM-Refiner is trained in 2 stages. "stage 2" trains only the ID heads with a frozen encoder, to ensure a good and stable learning signal for "stage 3" where the encoder is then trained. "stage 2" needs significantly less compute resources and can also be used to get a quick estimate if hyperparameters are suited (temperature, head learning rate, ...).
+
+A demo that showcases how to train models can be found [here](https://youtu.be/mS_Lsjfxfko).
 
 # External Evaluation Frameworks
 
