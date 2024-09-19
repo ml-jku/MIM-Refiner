@@ -71,6 +71,8 @@ found [here](https://github.com/ml-jku/MIM-Refiner/tree/main/src/yamls). Note th
 
 A demo that showcases how to train models can be found [here](https://youtu.be/mS_Lsjfxfko).
 
+As the trained models are quite large, they also need a bunch of memory and therefore need multi-GPU/multi-node training. If memory is a bottleneck, there are multiple tradeoffs (see [this](https://github.com/ml-jku/MIM-Refiner/issues/11) issue).
+
 # External Evaluation Frameworks
 
 The evaluations of VTAB-1K were done with [this](https://github.com/BenediktAlkin/vtab1k-pytorch) codebase by loading the pre-trained models from torchhub.
